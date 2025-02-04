@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item Consider the following integral:
-\[\int_{a}^{b} (7-2 *x^2)dx.\]
+\[\int_{a}^{b} (7-x^2)dx.\]
 While this is a relatively straightforward integral -- split the difference and use power rule for integration -- we can approximate the area under this curve using Riemann sums. Below, I describe four rules for computing Riemann sums using rectangles of width $\delta_x$.
 \begin{itemize}
   \item Left Rule uses the left points to create the rectangles.
@@ -37,7 +37,7 @@ While this is a relatively straightforward integral -- split the difference and 
 The first step, is to create a function that computes the integrand.
 <<size="scriptsize", warning=FALSE, message=FALSE>>=
 integrand <- function(x){
-  f <- 7 - x^2
+  f <- 7 -2 * x^2
   return(f)
 }
 @
@@ -78,7 +78,7 @@ left.vals = integrand(left.points)
   skeleton below. When you are done, remove \texttt{eval=FALSE} to show that
   the function provides the expected result for the example above.\\
   \textbf{Solution:}
-<<eval=FALSE, size="scriptsize", warning=FALSE, message=FALSE>>=
+<<size="scriptsize", warning=FALSE, message=FALSE>>=
 riemann.sums <- function(fnct,                        # function to integrate
                          a,                           # lower bound of integral
                          b,                           # upper bound of integral
@@ -100,13 +100,18 @@ riemann.sums <- function(fnct,                        # function to integrate
   # Compute Area
   ######################################
   if(method == "Left"){
-    # Add necessary code here
+    left.points <- a + 0:99*(delta.x)
+    area <- sum(delta.x*(integrand(left.points)))
   }else if(method == "Right"){
-    # Add necessary code here
+    right.points <- a + 1:100*(delta.x)
+    area <- sum(delta.x*(integrand(right.points)))
   }else if(method == "Midpoint"){
-    # Add necessary code here
+    mid.points <- (left.points+right.points)/2
+    area <- sum(delta.x*(integrand(mid.points)))
   }else if(method == "Trapezoidial"){
-    # Add necessary code here
+    right.vals = integrand(right.points)
+    left.vals = integrand(left.points)
+    area = sum(delta.x*(right.vals + left.vals)/2)
   }else{
     stop("Please select a valid method (e.g., 'Left', 'Right', 'Midpoint', 'Trapezoidial')")
   }

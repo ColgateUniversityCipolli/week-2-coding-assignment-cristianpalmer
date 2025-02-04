@@ -89,7 +89,7 @@ The first step, is to create a function that computes the integrand.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hldef{integrand} \hlkwb{<-} \hlkwa{function}\hldef{(}\hlkwc{x}\hldef{)\{}
-  \hldef{f} \hlkwb{<-} \hlnum{7} \hlopt{-} \hldef{x}\hlopt{^}\hlnum{2}
+  \hldef{f} \hlkwb{<-} \hlnum{7} \hlopt{-}\hlnum{2} \hlopt{*} \hldef{x}\hlopt{^}\hlnum{2}
   \hlkwd{return}\hldef{(f)}
 \hldef{\}}
 \end{alltt}
@@ -117,7 +117,7 @@ We can compute the area using the Left Rule as follows.
 \hldef{(left.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(left.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 11.3732
+## [1] 8.7464
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -129,7 +129,7 @@ We can compute the area using the Right Rule as follows.
 \hldef{(right.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(right.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 11.2932
+## [1] 8.5864
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -141,7 +141,7 @@ We can compute the area using the Midpoint Rule as follows.
 \hldef{(mid.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(mid.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 11.3334
+## [1] 8.6668
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -157,7 +157,7 @@ We can compute the area using the Midpoint Rule as follows.
 \hldef{(trap.area} \hlkwb{=} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(right.vals} \hlopt{+} \hldef{left.vals)}\hlopt{/}\hlnum{2}\hldef{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 11.3332
+## [1] 8.6664
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -191,13 +191,18 @@ We can compute the area using the Midpoint Rule as follows.
   \hlcom{# Compute Area}
   \hlcom{######################################}
   \hlkwa{if}\hldef{(method} \hlopt{==} \hlsng{"Left"}\hldef{)\{}
-    \hlcom{# Add necessary code here}
+    \hldef{left.points} \hlkwb{<-} \hldef{a} \hlopt{+} \hlnum{0}\hlopt{:}\hlnum{99}\hlopt{*}\hldef{(delta.x)}
+    \hldef{area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(left.points)))}
   \hldef{\}}\hlkwa{else if}\hldef{(method} \hlopt{==} \hlsng{"Right"}\hldef{)\{}
-    \hlcom{# Add necessary code here}
+    \hldef{right.points} \hlkwb{<-} \hldef{a} \hlopt{+} \hlnum{1}\hlopt{:}\hlnum{100}\hlopt{*}\hldef{(delta.x)}
+    \hldef{area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(right.points)))}
   \hldef{\}}\hlkwa{else if}\hldef{(method} \hlopt{==} \hlsng{"Midpoint"}\hldef{)\{}
-    \hlcom{# Add necessary code here}
+    \hldef{mid.points} \hlkwb{<-} \hldef{(left.points}\hlopt{+}\hldef{right.points)}\hlopt{/}\hlnum{2}
+    \hldef{area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(mid.points)))}
   \hldef{\}}\hlkwa{else if}\hldef{(method} \hlopt{==} \hlsng{"Trapezoidial"}\hldef{)\{}
-    \hlcom{# Add necessary code here}
+    \hldef{right.vals} \hlkwb{=} \hlkwd{integrand}\hldef{(right.points)}
+    \hldef{left.vals} \hlkwb{=} \hlkwd{integrand}\hldef{(left.points)}
+    \hldef{area} \hlkwb{=} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(right.vals} \hlopt{+} \hldef{left.vals)}\hlopt{/}\hlnum{2}\hldef{)}
   \hldef{\}}\hlkwa{else}\hldef{\{}
     \hlkwd{stop}\hldef{(}\hlsng{"Please select a valid method (e.g., 'Left', 'Right', 'Midpoint', 'Trapezoidial')"}\hldef{)}
   \hldef{\}}
@@ -213,6 +218,11 @@ We can compute the area using the Midpoint Rule as follows.
              \hlkwc{a} \hldef{=} \hlnum{0}\hldef{,}
              \hlkwc{b} \hldef{=} \hlnum{2}\hldef{,}
              \hlkwc{n.rect} \hldef{=} \hlnum{100}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 8.6664
+\end{verbatim}
+\begin{alltt}
 \hlcom{######################################}
 \hlcom{# Compare to numerical integral}
 \hlcom{######################################}
@@ -220,6 +230,9 @@ We can compute the area using the Midpoint Rule as follows.
           \hlkwc{lower} \hldef{=} \hlnum{0}\hldef{,}     \hlcom{# that completes numerical}
           \hlkwc{upper} \hldef{=} \hlnum{2}\hldef{)}     \hlcom{# integration}
 \end{alltt}
+\begin{verbatim}
+## 8.666667 with absolute error < 9.8e-14
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{enumerate}
