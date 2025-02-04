@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item Consider the following integral:
-\[\int_{a}^{b} (7-x^2)dx.\]
+\[\int_{a}^{b} (7-2 *x^2)dx.\]
 While this is a relatively straightforward integral -- split the difference and use power rule for integration -- we can approximate the area under this curve using Riemann sums. Below, I describe four rules for computing Riemann sums using rectangles of width $\delta_x$.
 \begin{itemize}
   \item Left Rule uses the left points to create the rectangles.
@@ -37,7 +37,7 @@ While this is a relatively straightforward integral -- split the difference and 
 The first step, is to create a function that computes the integrand.
 <<size="scriptsize", warning=FALSE, message=FALSE>>=
 integrand <- function(x){
-  f <- 7 - 2 * x^2
+  f <- 7 - x^2
   return(f)
 }
 @
@@ -66,9 +66,11 @@ mid.points <- (left.points+right.points)/2
 \newpage
 \begin{enumerate}
   \item Write code that computes the area using the Trapezoidial Rule.\\
-  \textbf{Solution:}
+  \textbf{Solution: }
 <<size="scriptsize", warning=FALSE, message=FALSE>>=
-# Write code for answer here.
+right.vals = integrand(right.points)
+left.vals = integrand(left.points)
+(trap.area = sum(delta.x*(right.vals + left.vals)/2))
 @
   \item Write a function that takes \texttt{a}, \texttt{b}, and number of 
   rectangles (\texttt{n.rect}) in as input and returns the Trapezoidial Rule 

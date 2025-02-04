@@ -89,7 +89,7 @@ The first step, is to create a function that computes the integrand.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hldef{integrand} \hlkwb{<-} \hlkwa{function}\hldef{(}\hlkwc{x}\hldef{)\{}
-  \hldef{f} \hlkwb{<-} \hlnum{7} \hlopt{-} \hlnum{2} \hlopt{*} \hldef{x}\hlopt{^}\hlnum{2}
+  \hldef{f} \hlkwb{<-} \hlnum{7} \hlopt{-} \hldef{x}\hlopt{^}\hlnum{2}
   \hlkwd{return}\hldef{(f)}
 \hldef{\}}
 \end{alltt}
@@ -117,7 +117,7 @@ We can compute the area using the Left Rule as follows.
 \hldef{(left.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(left.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 8.7464
+## [1] 11.3732
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -129,7 +129,7 @@ We can compute the area using the Right Rule as follows.
 \hldef{(right.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(right.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 8.5864
+## [1] 11.2932
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -141,19 +141,24 @@ We can compute the area using the Midpoint Rule as follows.
 \hldef{(mid.area} \hlkwb{<-} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(}\hlkwd{integrand}\hldef{(mid.points))))}
 \end{alltt}
 \begin{verbatim}
-## [1] 8.6668
+## [1] 11.3334
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 \newpage
 \begin{enumerate}
   \item Write code that computes the area using the Trapezoidial Rule.\\
-  \textbf{Solution:}
+  \textbf{Solution: }
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Write code for answer here.}
+\hldef{right.vals} \hlkwb{=} \hlkwd{integrand}\hldef{(right.points)}
+\hldef{left.vals} \hlkwb{=} \hlkwd{integrand}\hldef{(left.points)}
+\hldef{(trap.area} \hlkwb{=} \hlkwd{sum}\hldef{(delta.x}\hlopt{*}\hldef{(right.vals} \hlopt{+} \hldef{left.vals)}\hlopt{/}\hlnum{2}\hldef{))}
 \end{alltt}
+\begin{verbatim}
+## [1] 11.3332
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
   \item Write a function that takes \texttt{a}, \texttt{b}, and number of 
